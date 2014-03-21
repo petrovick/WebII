@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <p:panel header="Pessoas Cadastradas">
+        <p:dataTable emptyMessage="Nenhuma Pessoa Cadastrada" paginator="true" rows="10"  value="#{pessoaManagedBean.listar()}" var="pessoa">
+            <p:column style="width: 10%" headerText="Código">
+                #{pessoa.idPessoa}
+            </p:column>
+            <p:column style="width: 90%" headerText="Descrição">
+                #{pessoa.nome}
+            </p:column>
+            
+        </p:dataTable>
+        
+    </p:panel>
+</ui:fragment>
