@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    
+    <ui:composition template="../template.xhtml">
+        <ui:define name="container">
+            <p:panel header="Reservas">
+                <h:panelGrid columns="1">
+                    <h:outputText value="Nome:" />
+                    <h:inputText size="50" />
+                    
+                    <h:outputText value="Data Inicio"  /><!-- Colocar value="XXXXX" no <p:calendar-->
+                    <p:calendar pages="3" pattern="MM/dd/yyyy HH:mm" />  
+                    
+                    <h:outputText value="Data Fim"  /><!-- Colocar value="XXXXX" no <p:calendar-->
+                    <p:calendar pages="1" pattern="MM/dd/yyyy HH:mm"/>  
+                    
+                    <h:outputText value="Apartamento Livres: " />  <!-- Colocar value="XXXXX" no p:selectOneMenu(value=autoCompleteBean.selectedPlayer1) e  f:selectItems(value=autoCompleteBean.players) e itemLabel="{player.name}" itemValue="{player}"-->
+                    <p:selectOneMenu effect="fade" >  
+                        <f:selectItem itemLabel="Select One" />  
+                        <f:selectItems    />  
+                    </p:selectOneMenu>
+                    
+                </h:panelGrid>
+            </p:panel>
+        </ui:define>
+    </ui:composition>
+    
+</html>

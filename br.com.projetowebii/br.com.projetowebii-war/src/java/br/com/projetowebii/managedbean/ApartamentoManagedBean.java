@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author petrovick
  */
-@Named(value = "reservaManagedBean")
+@Named(value = "apartamentoManagedBean")
 @RequestScoped
 public class ApartamentoManagedBean implements Serializable
 {

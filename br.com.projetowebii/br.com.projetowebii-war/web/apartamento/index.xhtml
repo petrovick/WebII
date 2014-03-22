@@ -8,7 +8,7 @@
     <ui:composition template="../template.xhtml">
         <ui:define name="container">
             <h:form id="form">
-                <p:dataGrid var="car" value="#{reservaManagedBean.apartamentos}" columns="3"  
+                <p:dataGrid var="car" value="#{apartamentoManagedBean.apartamentos}" columns="3"  
                     rows="12" paginator="true"  
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                     rowsPerPageTemplate="9,12,15">
@@ -20,7 +20,7 @@
                             <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">  
                                 <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
                                 <f:setPropertyActionListener value="#{car}"   
-                                                             target="#{reservaManagedBean.apartamentoSelecionado}" />  
+                                                             target="#{apartamentoManagedBean.apartamentoSelecionado}" />  
                             </p:commandLink>
                         </h:panelGrid>
                     </p:panel>
@@ -32,17 +32,17 @@
 
                         <h:panelGrid  columns="2" cellpadding="5">  
                             <h:outputLabel for="modelNo" value="Model No: " />  
-                            <h:outputText id="modelNo" value="#{reservaManagedBean.apartamentoSelecionado.descricao}" />  
+                            <h:outputText id="modelNo" value="#{apartamentoManagedBean.apartamentoSelecionado.descricao}" />  
 
                             <h:outputLabel for="year" value="Year: " />  
-                            <h:outputText id="year" value="#{reservaManagedBean.apartamentoSelecionado.numeroQuartos == 2}" />  
+                            <h:outputText id="year" value="#{apartamentoManagedBean.apartamentoSelecionado.numeroQuartos == 2}" />  
                             <p:commandButton value="Alugar"
                                              icon="ui-icon-plus"
-                                             rendered="#{reservaManagedBean.apartamentoSelecionado.statusApartamento.idStatusApartamento == 1}"
+                                             rendered="#{apartamentoManagedBean.apartamentoSelecionado.statusApartamento.idStatusApartamento == 1}"
                                              />
                             <p:commandButton value="Pagar"
                                              icon="ui-icon-search"
-                                             rendered="#{reservaManagedBean.apartamentoSelecionado.statusApartamento.idStatusApartamento == 2}"
+                                             rendered="#{apartamentoManagedBean.apartamentoSelecionado.statusApartamento.idStatusApartamento == 2}"
                                               />
                         </h:panelGrid>  
                         
