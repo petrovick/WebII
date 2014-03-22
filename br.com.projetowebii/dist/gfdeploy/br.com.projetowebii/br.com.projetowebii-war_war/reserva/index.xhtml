@@ -14,15 +14,18 @@
                     <h:inputText size="50" />
                     
                     <h:outputText value="Data Inicio"  /><!-- Colocar value="XXXXX" no <p:calendar-->
-                    <p:calendar pages="3" pattern="MM/dd/yyyy HH:mm" />  
+                    <p:calendar pages="3" value="#{reservaManagedBean.reserva.dataRealizacaoReserva}" pattern="MM/dd/yyyy HH:mm" />  
                     
                     <h:outputText value="Data Fim"  /><!-- Colocar value="XXXXX" no <p:calendar-->
-                    <p:calendar pages="1" pattern="MM/dd/yyyy HH:mm"/>  
+                    <p:calendar pages="1" value="#{reservaManagedBean.reserva.dataReserva}" pattern="MM/dd/yyyy HH:mm"/>  
+                  
+                   <!-- renderizar os apartamento de acordo com as datas fornecidas -->
                     
-                    <h:outputText value="Apartamento Livres: " />  <!-- Colocar value="XXXXX" no p:selectOneMenu(value=autoCompleteBean.selectedPlayer1) e  f:selectItems(value=autoCompleteBean.players) e itemLabel="{player.name}" itemValue="{player}"-->
-                    <p:selectOneMenu effect="fade" >  
+                    <h:outputText value="Apartamento Livres: " /> 
+<!-- Colocar value="XXXXX" no p:selectOneMenu(value=autoCompleteBean.selectedPlayer1) e  f:selectItems(value=autoCompleteBean.players) e itemLabel="{player.name}" itemValue="{player}"-->
+<p:selectOneMenu rendered="#{reservaManagedBean.}" effect="fade" value="#{apartamentoManagedBean.apartamentoSelecionado}" >  
                         <f:selectItem itemLabel="Select One" />  
-                        <f:selectItems    />  
+                        <f:selectItems value="#{apartamentoManagedBean.apartamentos}" var="apartamento" itemLabel="#{apartamento.numeroQuartos}" itemValue="#{apartamento}" />  
                     </p:selectOneMenu>
                     
                 </h:panelGrid>

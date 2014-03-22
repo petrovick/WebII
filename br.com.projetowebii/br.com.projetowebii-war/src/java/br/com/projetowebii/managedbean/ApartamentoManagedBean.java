@@ -1,12 +1,11 @@
 package br.com.projetowebii.managedbean;
 
-import br.com.projetowebii.service.IReservaService;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import br.com.projetowebii.entidade.Reserva;
 import br.com.projetowebii.entidade.Apartamento;
+import br.com.projetowebii.service.IApartamentoService;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 public class ApartamentoManagedBean implements Serializable
 {
     @EJB
-    private IReservaService reservaService;
+    private IApartamentoService apartamentoService;
     private String nomeConsulta;
     private String apConsulta;
     private List<Apartamento> apartamentos;
@@ -39,7 +38,7 @@ public class ApartamentoManagedBean implements Serializable
     }
     
     public List<Apartamento> getApartamentos() {
-        apartamentos = reservaService.listarApartamento();
+        apartamentos = apartamentoService.listar();
         return apartamentos;
     }
 
@@ -60,15 +59,15 @@ public class ApartamentoManagedBean implements Serializable
     }
     
     
-    public List<Reserva> listar()
+    public List<Apartamento> listar()
     {
-        return reservaService.listar();
+        return apartamentoService.listar();
     }
     
     
-    public List<Apartamento> listarApartamento()
+    public List<Apartamento> listarApartamentoLivre()
     {
-        return reservaService.listarApartamento();
+        return apartamentoService.listarApartamentosLivres();
     }
     
     
