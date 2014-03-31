@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Loja de carros</title >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+    <h:body>
+        <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" />
+        <p:dialog modal="true" widgetVar="statusDialog" header="Carregando" draggable="false" closable="false">
+            <p:graphicImage value="conteudo/imagem/ajax-loading-bar-19.gif" />
+        </p:dialog>
+        
+        
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="100" style="color: red;">
+            Cabeçalho
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="100">
+            Rodapé
+            </p:layoutUnit>
+            <p:layoutUnit position="west" size="200" collapsible="true">
+                <h:form>
+                    <p:menubar>
+                            <p:menuitem value="Pessoas" url="/pessoa/index.html" />
+                    </p:menubar>
+                    <p:menubar>
+                            <p:menuitem value="Clientes" url="/cliente/index.html" />
+                    </p:menubar>
+                    <p:menubar>
+                        <p:menuitem value="Reservas" url="/reserva/index.html" />
+                    </p:menubar>
+                    <p:menubar>
+                        <p:menuitem value="Cadastrar Reserva" url="#" />
+                    </p:menubar>
+                    <p:menubar>
+                        <p:menuitem value="Quadro" url="#" />
+                    </p:menubar>
+                    <p:menubar>
+                        <p:menuitem value="Funcionario" url="#" />
+                    </p:menubar>
+                    <p:menubar>
+                        <p:menuitem value="Apartamento" url="/apartamento/index.html" />
+                    </p:menubar>
+                </h:form>
+
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <ui:insert name="container">
+                    Conteudo
+                </ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+        
+    </h:body>
+</html>

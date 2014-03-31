@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
+    
+    <ui:composition template="../template.xhtml">
+        <ui:define name="container">
+            <p:panel header="Reservas">
+                <h:panelGrid columns="1">
+                    <h:outputText value="Nome:" />
+                    <h:inputText size="50" />
+                    
+                    <h:outputText value="Data Inicio"  /><!-- Colocar value="XXXXX" no <p:calendar-->
+                    <p:calendar pages="3" value="#{reservaManagedBean.reserva.dataRealizacaoReserva}" pattern="MM/dd/yyyy HH:mm" />  
+                    
+                    <h:outputText value="Data Fim"  /><!-- Colocar value="XXXXX" no <p:calendar-->
+                    <p:calendar pages="1" value="#{reservaManagedBean.reserva.dataReserva}" pattern="MM/dd/yyyy HH:mm"/>  
+                  
+                   <!-- renderizar os apartamento de acordo com as datas fornecidas -->
+                    
+                    <h:outputText value="Apartamento Livres: " /> 
+<!-- Colocar value="XXXXX" no p:selectOneMenu(value=autoCompleteBean.selectedPlayer1) e  f:selectItems(value=autoCompleteBean.players) e itemLabel="{player.name}" itemValue="{player}"-->
+<p:selectOneMenu rendered="#{reservaManagedBean.}" effect="fade" value="#{apartamentoManagedBean.apartamentoSelecionado}" >  
+                        <f:selectItem itemLabel="Select One" />  
+                        <f:selectItems value="#{apartamentoManagedBean.apartamentos}" var="apartamento" itemLabel="#{apartamento.numeroQuartos}" itemValue="#{apartamento}" />  
+                    </p:selectOneMenu>
+                    
+                </h:panelGrid>
+            </p:panel>
+        </ui:define>
+    </ui:composition>
+    
+</html>
