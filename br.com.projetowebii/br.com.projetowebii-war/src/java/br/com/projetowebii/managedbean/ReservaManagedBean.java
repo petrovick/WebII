@@ -1,86 +1,86 @@
 package br.com.projetowebii.managedbean;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import br.com.projetowebii.entidade.*;
 import br.com.projetowebii.service.IReservaService;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import br.com.projetowebii.entidade.Reserva;
+import br.com.projetowebii.entidade.Apartamento;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  *
  * @author petrovick
  */
 @Named(value = "reservaManagedBean")
 @RequestScoped
-public class ReservaManagedBean
+public class ReservaManagedBean implements Serializable
 {
     @EJB
     private IReservaService reservaService;
-    private Reserva reserva;
-    private Pessoa pessoa;
-    private Conta conta;
-    private StatusReserva statusReserva;
-  
-    private List<Reserva> reservas;
+    
+    private String nomeConsulta;
+    private String apConsulta;
+    private List<Apartamento> apartamentos;
+    private Apartamento apartamentoSelecionado;
+    
+    
+    
     public ReservaManagedBean()
     {
-        
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-  
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public IReservaService getReservaService() {
-        return reservaService;
-    }
-
-    public void setReservaService(IReservaService reservaService) {
-        this.reservaService = reservaService;
+        apartamentos = new ArrayList<Apartamento>();
     }
     
-    
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public Conta getConta() {
-        return conta;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    }
-
-    public StatusReserva getStatusReserva() {
-        return statusReserva;
-    }
-
-    public void setStatusReserva(StatusReserva statusReserva) {
-        this.statusReserva = statusReserva;
+    public List<Reserva> listarReservasNaoPagas()
+    { 
+        return reservaService.listarReservasNaoPagas();
     }
     
-    public boolean renderizaDropDownApartamento()
+    public List<Reserva> listar()
     {
-        
+        return reservaService.listar();
     }
     
     
+    public List<Apartamento> listarApartamento()
+    {
+        return reservaService.listarApartamento();
+    }
+    
+    public String redirecionaParaPagamento()
+    {
+        return "/reserva/RealizarReserva.xhtml";
+    }
+
+    public Apartamento getApartamentoSelecionado() {
+        return apartamentoSelecionado;
+    }
+
+    public void setApartamentoSelecionado(Apartamento apartamentoSelecionado) {
+        this.apartamentoSelecionado = apartamentoSelecionado;
+    }
+    
+    public List<Apartamento> getApartamentos() {
+        apartamentos = reservaService.listarApartamento();
+        return apartamentos;
+    }
+
+    public String getNomeConsulta() {
+        return nomeConsulta;
+    }
+
+    public void setNomeConsulta(String nomeConsulta) {
+        this.nomeConsulta = nomeConsulta;
+    }
+
+    public String getApConsulta() {
+        return apConsulta;
+    }
+
+    public void setApConsulta(String apConsulta) {
+        this.apConsulta = apConsulta;
+    }
 }
+

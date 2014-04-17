@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="../template.xhtml">
+        <ui:define name="container">
+            <h:form id="formularioPf">
+                <p:panel id="painelCliente"> 
+                    <p:outputPanel id="formCadastroPessoa" rendered="true">  
+                        <p:messages id="menssagens" showDetail="true"/>
+                            <h:panelGrid columns="2" cellpadding="2" >  
+                                 
+                               <h:outputLabel id="labelCliNome" value="Nome: *"/>  
+                                <p:inputText id="nome" maxlength="50" size="35" value="#{clienteFisicoManagedBean.cliente.pessoa.nome}" required="true" />  
+
+                                <h:outputLabel id="labelCpfCnpj" value="CPF/CNPJ: *"/>  
+                                <p:inputMask mask="999.999.999-99" id="cpf" size="20" value="#{clienteFisicoManagedBean.cliente.pessoa.pessoaFisica.cpf}" required="true"/>  
+
+                                <h:outputLabel id="label" value="Email: "/>
+                                <h:inputText id="email" maxlength="50" size="35" value="#{clienteFisicoManagedBean.cliente.pessoa.email}" />
+
+                            </h:panelGrid>                                                  
+
+                    </p:outputPanel>  
+                    <p:commandButton id="btCadastrar"
+                                     value="Gravar"
+                                     actionListener="#{clienteFisicoManagedBean.salvar()}"
+                                     update="painelCliente"  />
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

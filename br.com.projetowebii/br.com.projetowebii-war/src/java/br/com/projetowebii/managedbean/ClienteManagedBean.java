@@ -10,123 +10,78 @@ import br.com.projetowebii.util.MensagemUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 @Named(value = "clienteManagedBean")
-@ViewScoped
+@RequestScoped
 public class ClienteManagedBean
 {
     @EJB
     private IClienteService clienteService;
+    
     private Cliente cliente;
     private Cliente clienteSelecionado;
-    private List<Cliente> clientes;
-    private String nomeConsulta;
-    private List<SelectItem> tpPessoa;
-    private SelectItem itemSelecionado;
-    private String mascaraCpfCnpj;
-    private String cpfCnpj;
-
-    public String getCpfCnpj() {
-        return cpfCnpj;
-    }
-
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
-    }
     
-    public List<SelectItem> getTpPessoa() {
-        return tpPessoa;
-    }
-
-    public void setTpPessoa(List<SelectItem> tpPessoa) {
-        this.tpPessoa= tpPessoa;
-    }
-    
-    
-
-    public SelectItem getItemSelecionado() {
-        return itemSelecionado;
-    }
-
-    public void setItemSelecionado(SelectItem itemSelecionado) {
-        this.itemSelecionado = itemSelecionado;
-    }
-
-    public String getMascaraCpfCnpj() {
-        return mascaraCpfCnpj;
-    }
-
-    public void setMascaraCpfCnpj(String mascaraCpfCnpj) {
-        this.mascaraCpfCnpj = mascaraCpfCnpj;
-    }
-    
-    public void trocarMascara(ValueChangeEvent evt){  
-        itemSelecionado.setValue(evt.getNewValue());  
-        if(itemSelecionado.getValue() != null){  
-            String tipo = itemSelecionado.getValue().toString();  
-            System.out.println("TIPO:" + tipo );
-            if (tipo.equals("cnpj")) {    
-                mascaraCpfCnpj = "99.999.999/9999-99"; 
-            } else {    
-                mascaraCpfCnpj = "999.999.999-99";    
-            }    
-        }   
-    }  
-    
-    
-    @PostConstruct
-    public void init()
+    public ClienteManagedBean()
     {
-        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-        if(id != null)
-            cliente = clienteService.obter(Integer.parseInt(id));
-        
         cliente = new Cliente();
         cliente.setPessoa(new Pessoa());
-        itemSelecionado = new SelectItem();
-        tpPessoa = new ArrayList<SelectItem>();
-        tpPessoa.add(new SelectItem("cpf", "Pessoa Fisica"));
-        tpPessoa.add(new SelectItem("cnpj", "Pessoa Juridica"));
-        
+    }
+    
+    public void novo()
+    {
+        this.cliente = new Cliente();
+        this.cliente.setPessoa(new Pessoa());
     }
     
     public void salvar()
     {
-        Boolean erro = clienteService.salvar(cliente);
-        if(erro)
-            MensagemUtil.addMensgeamInfo("Cliente salvo com sucesso.");
+        System.out.println("Pessoa Nome: " + cliente.getPessoa().getNome());
+        System.out.println("Pessoa Email: " + cliente.getPessoa().getEmail());
+        System.out.println("Pessoa CPF: " + cliente.getPessoa().getCpfcnpj());
+        System.out.println("Pessoa TipoPessoa:" + cliente.getPessoa().getTipoPessoa());
+        
+        System.out.println("Cliente: " + cliente);
+        System.out.println("Pessoa: " + cliente.getPessoa());
+        
+        String erro = clienteService.salvar(cliente);
+        
+        if(erro == null)
+        {
+            MensagemUtil.addMensgeamInfo("Cliente savo com sucesso.");
+            cliente = new Cliente();
+        }
         else
-            MensagemUtil.addMensagemError("Cliente não foi salvo.");
+            MensagemUtil.addMensagemError(erro);
     }
+    
     
     public void excluir()
     {
-        Boolean erro = clienteService.remover(clienteSelecionado.getIdPessoa());
-        if(erro)
+        String erro = clienteService.remover(clienteSelecionado.getIdPessoa());
+        if(erro == null)
         {
-            MensagemUtil.addMensgeamInfo("Cliente excluido com sucesso.");
-            this.clientes.remove(clienteSelecionado);
+            MensagemUtil.addMensgeamInfo("Cliente Excluido com sucesso");
         }
         else
-            MensagemUtil.addMensagemError("Erro ao excluir.");
+            MensagemUtil.addMensagemError(erro);
     }
     
-    
-    public void editar() throws IOException
+    public void editar()
     {
-        FacesContext.getCurrentInstance().getExternalContext().redirect("formulario.html?id=" + clienteSelecionado.getIdPessoa());
+        cliente = clienteSelecionado;
     }
     
-    
-    public void consultarCliente()
+    public List<Cliente> todos()
     {
-        this.clientes = clienteService.listarNome(nomeConsulta);
+        List<Cliente> lC = clienteService.listar();
+        return lC;
     }
-    
     
     public Cliente getCliente()
     {
@@ -150,33 +105,4 @@ public class ClienteManagedBean
     {
         this.clienteSelecionado = clienteSelecionado;
     }
-    
-    
-    public List<Cliente> getClientes()
-    {
-        return clientes;
-    }
-    
-    public void setClientes(List<Cliente> clientes)
-    {
-        this.clientes = clientes;
-    }
-    
-    public String getNomeConsulta()
-    {
-        return nomeConsulta;
-    }
-    
-    public void setNomeConsulta(String nomeConsulta)
-    {
-        this.nomeConsulta = nomeConsulta;
-    }
-    
-    public List<Cliente> listar()
-    {
-        return clienteService.listar();
-    }
-    
-    
-    
 }

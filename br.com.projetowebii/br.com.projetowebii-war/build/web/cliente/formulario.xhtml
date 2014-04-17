@@ -1,63 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     
-    <ui:composition template="../template.xhtml">
-        
-        <ui:define name="container">
-            <p:tabView>  
-                <!-- INÍCIO DA TAB DE CADASTRO -->  
-                <p:tab title="Cadastro" id="tabCadastroCliente">  
-                    
-                    <h:form prependId="false">  
-                        <p:panel id="painelCliente">
-                            <h:panelGrid columns="2" cellspacing="1"> 
-
-                                <h:selectOneRadio id="tipoPessoa" immediate="true" valueChangeListener="#{clienteManagedBean.trocarMascara}" >   
-                                    <f:selectItems value="#{clienteManagedBean.tpPessoa}" />  
-                                    <f:ajax  event="change" render="escondeForm" />  
-                                </h:selectOneRadio>  
-                            </h:panelGrid>  
-                            <p:outputPanel id="escondeForm">  
-                                <p:outputPanel id="formCadastroPessoa" rendered="#{clienteManagedBean.itemSelecionado.getValue() != null}">  
-                                    <p:messages id="menssagens" showDetail="true"/>           
-                                        <p:ajaxStatus style="width:16px;height:16px;">  
-                                            <f:facet name="start">  
-                                                <h:graphicImage value="../imagens/loading.gif" />  
-                                            </f:facet>  
-                                            <f:facet name="complete">  
-                                                <h:outputText value="" />  
-                                            </f:facet>  
-                                        </p:ajaxStatus>                         
-                                        <h:panelGrid columns="2" cellpadding="2" >  
-                                            <h:outputLabel id="labelCliNome" value="Nome: *"/>  
-                                            <p:inputText id="nome" maxlength="50" size="35" value="#{clienteManagedBean.cliente.pessoa.nome}" required="true" />  
-
-                                            <h:outputLabel id="labelCpfCnpj" value="CPF/CNPJ: *"/>  
-                                            <p:inputMask mask="#{clienteManagedBean.mascaraCpfCnpj}" id="cpfCnpj" size="20" value="#{clienteManagedBean.cpfCnpj}" required="true"/>  
-
-                                            <h:outputLabel id="label" value="Email: "/>
-                                            <h:inputText id="email" maxlength="50" size="35" value="#{clienteManagedBean.cliente.pessoa.email}" />
-
-                                        </h:panelGrid>                                                  
-
-                                </p:outputPanel>  
-                                <p:commandButton id="btCadastrar"
-                                                 value="Gravar"
-                                                 actionListener="#{clienteManagedBean.salvar()}"
-                                                 update="painelCliente"  />
-                                
-                            </p:outputPanel>                                                        
-                        </p:panel>
-                    </h:form>               
-                </p:tab>                
-             </p:tabView>
-        </ui:define>
-        
-    </ui:composition>
-    
-    
-</html>
+    <h:form id="formCadastro">
+        <p:panel header="Cliente" id="painelCadastro">
+            <p:growl />
+            <h:inputHidden value="#{clienteManagedBean.cliente.pessoa.idPessoa}" />
+            
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Nome: " />
+                <p:inputText value="#{clienteManagedBean.cliente.pessoa.nome}" />
+                
+                <h:outputLabel value="Email: " />
+                <p:inputText value="#{clienteManagedBean.cliente.pessoa.email}" />
+                
+                <h:outputLabel value="Tipo Pessoa:" />
+                <h:selectOneMenu value="#{clienteManagedBean.cliente.pessoa.tipoPessoa}" >
+                    <f:selectItem itemLabel="Selecione..." />
+                    <f:selectItem itemValue="F" itemLabel="CPF" />
+                    <f:selectItem itemValue="J" itemLabel="CNPJ" /> 
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="CPF/CNPJ: " />
+                <p:inputText size="20" value="#{clienteManagedBean.cliente.pessoa.cpfcnpj}" required="true" />
+            </h:panelGrid>
+            
+            <p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{clienteManagedBean.salvar()}" update="painelCadastro"/>
+            <p:commandButton value="Novo" icon="ui-icon-plus" actionListener="#{clienteManagedBean.novo()}" update="painelCadastro" />
+        </p:panel>
+    </h:form>
+</ui:fragment>

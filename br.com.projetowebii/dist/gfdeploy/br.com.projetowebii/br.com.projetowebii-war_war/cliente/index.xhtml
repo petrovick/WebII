@@ -6,37 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="../template.xhtml">
         <ui:define name="container">
-            <h:form>
-                <p:panel header="Consulta Cliente">
-                    <h:panelGrid columns="2">
-                        <h:outputLabel value="Nome:" />
-                        <h:inputText value="#{clienteManagedBean.nomeConsulta}" size="50"/>
-                        <p:commandButton value="Procurar" icon="ui-icon-search" actionListener="#{clienteManagedBean.consultarCliente()}" update="painelClientes" />                        
-                        <p:button icon="ui-icon-plus" value="Novo" outcome="formulario.html" />
-                    </h:panelGrid>
-                </p:panel>
-                <p:contextMenu for="tabela">
-                    <p:menuitem value="Excluir" icon="ui-icon-close" actionListener="#{clienteManagedBean.excluir()}" update="painelClientes" />
-                    <p:menuitem value="Editar" icon="ui=icon-pencil" ajax="false" action="#{clienteManagedBean.editar()}" />
-                </p:contextMenu>
-                <h:outputLabel id="painelClientes">
-                    <p:dataTable 
-                        value="#{clienteManagedBean.clientes}"
-                                var="cli"
-                                id="tabela"
-                                rendered="#{clienteManagedBean.clientes != null}"
-                                paginator="true"
-                                rows="10"
-                                emptyMessage="Nenhum cliente encontrado"
-                                rowKey="#{cli.idPessoa}"
-                                selection="#{clienteManagedBean.clienteSelecionado}"
-                                selectionMode="single">
-                        <p:column headerText="Código" style="width: 20%">#{cli.idPessoa}</p:column>
-                        <p:column headerText="Nome" style="width: 40%">#{cli.pessoa.nome}</p:column>
-                        <p:column headerText="Email" style="width: 40%">#{cli.pessoa.email}</p:column>
-                    </p:dataTable>
-                </h:outputLabel>
-            </h:form>
+            <ui:include src="formulario.xhtml" />
+            <ui:include src="tabela.xhtml" />
         </ui:define>
     </ui:composition>
     

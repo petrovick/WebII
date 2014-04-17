@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:h="http://java.sun.com/jsf/html">
+
+
+    <h:form id="formTabela"> 
+
+        <p:contextMenu for="tabela">   
+            <p:menuitem value="Excluir" icon="ui-icon-close" 
+                        actionListener="#{contaManagedBean.pagar()}" 
+                        update="painelMarca" />
+            
+        </p:contextMenu>  
+
+        <p:panel header="Reservas a Pagar" id="painelMarca">
+            <p:growl />
+            <p:dataTable value="#{reservaManagedBean.listarReservasNaoPagas()}"
+                var="r" id="tabela" 
+                paginator="true" rows="10" 
+                emptyMessage="Nenhum cliente cadastrado" 
+                rowKey="#{r.idReserva}" 
+                selection="#{clienteManagedBean.clienteSelecionado}" 
+                selectionMode="single" >
+
+                <p:column headerText="Quarto" style="width: 30%">
+                    #{r.idApartamento.descricao}
+                </p:column>
+                <p:column headerText="Data Início" style="width: 30%">#{r.dataInicioReserva}</p:column>
+
+                <p:column headerText="Data Fim" style="width: 30%">
+                    #{r.dataFimReserva}
+                </p:column>
+                
+                <p:column headerText="Cliente" style="width: 33%">
+                    #{r.idPessoa.pessoa.nome}
+                </p:column>
+                
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+
+</ui:fragment>

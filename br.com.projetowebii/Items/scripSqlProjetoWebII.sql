@@ -1,5 +1,7 @@
 create database projetowebii;
+go;
 use projetowebii;
+go;
 CREATE TABLE Papel (IdPapel int(11) NOT NULL AUTO_INCREMENT, Descricao varchar(50) NOT NULL, PRIMARY KEY (IdPapel));
 CREATE TABLE Horario (IdHorario tinyint NOT NULL AUTO_INCREMENT, Horario time NOT NULL UNIQUE, PRIMARY KEY (IdHorario));
 CREATE TABLE Escala (IdEscala int(11) NOT NULL AUTO_INCREMENT, IdPessoa int(11) NOT NULL, IdHorarioInicio tinyint NOT NULL, IdHorarioFim tinyint NOT NULL, PRIMARY KEY (IdEscala));
@@ -7,7 +9,7 @@ CREATE TABLE Funcionario (IdPessoa int(11) NOT NULL, IdPapel int(11) NOT NULL, P
 CREATE TABLE StatusReserva (IdStatusReserva tinyint NOT NULL AUTO_INCREMENT, Descricao varchar(50) NOT NULL, PRIMARY KEY (IdStatusReserva));
 CREATE TABLE StatusApartamento (IdStatusApartamento tinyint NOT NULL AUTO_INCREMENT, Descricao varchar(50) NOT NULL, PRIMARY KEY (IdStatusApartamento));
 CREATE TABLE ApartamentoReserva (IdApartamento int(11) NOT NULL, IdReserva int(11) NOT NULL, PRIMARY KEY (IdApartamento, IdReserva));
-CREATE TABLE Apartamento (IdApartamento int(11) NOT NULL AUTO_INCREMENT, Descricao int(11), NumeroQuartos int(11), IdStatusApartamento tinyint NOT NULL, PRIMARY KEY (IdApartamento));
+CREATE TABLE Apartamento (IdApartamento int(11) NOT NULL AUTO_INCREMENT, Descricao nvarchar(50), NumeroQuartos int(11), IdStatusApartamento tinyint NOT NULL, PRIMARY KEY (IdApartamento));
 CREATE TABLE Cliente (IdPessoa int(11) NOT NULL, PRIMARY KEY (IdPessoa));
 CREATE TABLE Reserva (IdPessoa int(11) NOT NULL, IdReserva int(11) NOT NULL AUTO_INCREMENT, IdStatusReserva tinyint NOT NULL, DataRealizacaoReserva date NOT NULL, DataReserva date NOT NULL, DuracaoReserva smallint(6) NOT NULL, IdConta int(11) NOT NULL, PRIMARY KEY (IdReserva));
 CREATE TABLE Pagamento (IdPagamento int(11) NOT NULL AUTO_INCREMENT, IdConta int(11) NOT NULL, DataVencimento date NOT NULL, ValorPagamento decimal(19, 0), DataPagamento date, PRIMARY KEY (IdPagamento));
